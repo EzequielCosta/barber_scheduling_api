@@ -57,6 +57,9 @@ class AuthController extends Controller
             'name' => $request->get("name"),
             'email' => $request->get("email"),
             'password' => Hash::make($request->get("password")),
+            'customer' => $request->get("customer"),
+            'administrator' => $request->get("administrator"),
+            'employee' => $request->get("employee"),
         ]);
 
         $token = $user->createToken($request->get("device_name"))->plainTextToken;

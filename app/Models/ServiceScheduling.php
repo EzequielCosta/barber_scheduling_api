@@ -14,5 +14,11 @@ class ServiceScheduling extends Model
     protected $fillable = [
         "scheduling_id",
         "service_id",
+        "time",
     ];
+
+    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Service::class);
+    }
 }

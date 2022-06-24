@@ -10,22 +10,14 @@ use Illuminate\Support\Facades\Route;
  *
  */
 
-//Route::prefix("scheduling")->group(function (){
-//    require __DIR__.'/scheduling.php';
-//});
-
-//Route::middleware("auth")->group( function (){
-//Route::prefix("scheduling")->group(function(){
 Route::group(["prefix" => "scheduling", "middleware" => ["auth:sanctum"]], function(){
 
     Route::get("/", [SchedulingController::class, 'index']);
     Route::post("/", [SchedulingController::class, 'store']);
-    Route::get("/scheduling/{id}", [SchedulingController::class, 'show']);
-    Route::put("/scheduling/{id}", [SchedulingController::class, 'update']);
-    Route::delete("/scheduling/{id}", [SchedulingController::class, 'destroy']);
+    Route::get("/{id}", [SchedulingController::class, 'show']);
+    Route::put("/{id}", [SchedulingController::class, 'update']);
+    Route::delete("/{id}", [SchedulingController::class, 'destroy']);
 });
-//    Route::get("/index", [SchedulingController::class, 'index'])->middleware("auth:sanctum");
-//});
 
 //});
 

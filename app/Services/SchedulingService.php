@@ -3,15 +3,18 @@
 namespace App\Services;
 
 use App\Repositories\SchedulingRepository;
+use App\Repositories\ServiceSchedulingRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class SchedulingService implements CRUDService
 {
     private SchedulingRepository $schedulingRepository;
+    private ServiceSchedulingRepository $serviceSchedulingRepository;
 
-    public function __construct(SchedulingRepository $schedulingRepository)
+    public function __construct(SchedulingRepository $schedulingRepository, ServiceSchedulingRepository $serviceSchedulingRepository)
     {
         $this->schedulingRepository = $schedulingRepository;
+        $this->serviceSchedulingRepository = $serviceSchedulingRepository;
     }
 
     /**
@@ -32,8 +35,22 @@ class SchedulingService implements CRUDService
 //        if ($this->schedulingRepository->checkIfScheduleToBeAvailableForEmployee()){
 //            return ["error" => "Already schedule to this date"];
 //        }
+//        $this->schedulingRepository->store($data);
+//        $schedulingId = $data["id"];
+//        $this->serviceSchedulingRepository->store($schedulingId, $data["services"]);
 
-        return $this->schedulingRepository->store();
+        $schedulingObject = $this->schedulingRepository->store($data);
+        $totalPrice = 0.0;
+        foreach ($data["services"] as $service){
+            $dataService = $service;
+            $dataService["scheduling_id"] = $schedulingObject->id;
+            $dataService["service_id"] = $service["id"];
+            $serviceSchedulingObject = $this->serviceSchedulingRepository->store($dataService);
+            $totalPrice += $serviceSchedulingObject->service->price;
+        }
+
+        return $this->schedulingRepository->update(["total_price" => $totalPrice], $schedulingObject->id);
+
     }
 
     /**
@@ -42,7 +59,7 @@ class SchedulingService implements CRUDService
      */
     public function show(int|string $id)
     {
-        return $this->schedulingRepository->store($id);
+        return $this->schedulingRepository->show($id);
     }
 
     /**
@@ -61,6 +78,6 @@ class SchedulingService implements CRUDService
      */
     public function destroy(int|string $id)
     {
-        return $this->schedulingRepository->destroy($id);
+
     }
 }

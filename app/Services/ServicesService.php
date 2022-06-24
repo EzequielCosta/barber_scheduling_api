@@ -57,4 +57,8 @@ class ServicesService implements CRUDService
     {
         return $this->serviceRepository->destroy($id);
     }
+
+    public function findEmployeesByService( int $id ){
+        return $this->serviceRepository->findEmployeesByService($id);
+    }
 }

@@ -69,4 +69,13 @@ class ServiceRepository implements CRUDRepository
     {
         return $this->service::destroy($id);
     }
+
+    public function findEmployeesByService( int $serviceId ){
+        $object = $this->service->find($serviceId);
+        if ($object === null){
+            return [];
+        }
+
+        return $object->employees;
+    }
 }

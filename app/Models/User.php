@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Scheduling::class);
     }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'employee_services', foreignPivotKey: "employee_id");
+    }
+
+    public function schedules()
+    {
+        return $this->belongsToMany(Schedule::class, 'schedule_employee', foreignPivotKey: "employee_id");
+    }
 }

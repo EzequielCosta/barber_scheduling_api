@@ -14,4 +14,21 @@ class Service extends Model
         "description",
         "price",
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+
+    public function scheduling(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function employees()
+    {
+        return $this->belongsToMany(User::class,'employee_services', relatedPivotKey: 'employee_id');
+    }
 }

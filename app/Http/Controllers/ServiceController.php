@@ -114,4 +114,13 @@ class ServiceController extends Controller
             return response()->json(["error" => $e->getMessage()]);
         }
     }
+
+    public function findEmployeesByService(int $id){
+        try {
+            $object =  $this->servicesService->findEmployeesByService($id);
+            return  response()->json($object);
+        }catch (\Exception $e){
+            return \response()->json(["error" => $e->getMessage()]);
+        }
+    }
 }

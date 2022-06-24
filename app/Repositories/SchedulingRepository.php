@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\Scheduling;
+use App\Models\Service;
+use App\Models\ServiceScheduling;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -33,7 +35,22 @@ class SchedulingRepository implements CRUDRepository
      */
     public function store(array $data)
     {
-        return $this->scheduling::create($data);
+        $schedulingObject = $this->scheduling::create($data);
+//        $services= $data["services"];
+//        $totalPrice = 0.0;
+//        foreach ($services as $service){
+//            $serviceObject = Service::find($service["id"]);
+//            $totalPrice += $serviceObject->price;
+//            ServiceScheduling::create([
+//                "scheduling_id" => $schedulingObject->id,
+//                "service_id" => $service["id"],
+//                "time" => $service["time"],
+//            ]);
+//        }
+//        $schedulingObject->total_price = $totalPrice;
+//        $schedulingObject->save();
+
+        return $schedulingObject;
     }
 
     /**
@@ -56,7 +73,8 @@ class SchedulingRepository implements CRUDRepository
         if ($object === null){
             return [];
         }
-        $object->update($data);
+       $object->update($data);
+
         return $object;
     }
 

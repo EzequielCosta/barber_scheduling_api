@@ -21,3 +21,5 @@ require __DIR__.'/auth.php';
 
 require __DIR__.'/scheduling.php';
 require __DIR__.'/service.php';
+require __DIR__.'/user.php';
+

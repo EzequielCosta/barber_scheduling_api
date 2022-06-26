@@ -23,4 +23,12 @@ class Scheduling extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            Service::class,
+            'service_scheduling',
+        )->using(ServiceScheduling::class)->withTimestamps();
+    }
 }

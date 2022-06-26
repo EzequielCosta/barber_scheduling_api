@@ -53,11 +53,11 @@ class User extends Authenticatable
 
     public function services()
     {
-        return $this->belongsToMany(Service::class, 'employee_services', foreignPivotKey: "employee_id");
+        return $this->belongsToMany(Service::class, 'employee_services', foreignPivotKey: "employee_id")->using(EmployeeService::class)->withTimestamps();
     }
 
     public function schedules()
     {
-        return $this->belongsToMany(Schedule::class, 'schedule_employee', foreignPivotKey: "employee_id");
+        return $this->belongsToMany(Schedule::class, 'schedule_employee', foreignPivotKey: "employee_id")->using(ScheduleEmployee::class)->withTimestamps();
     }
 }

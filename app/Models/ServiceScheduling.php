@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ServiceScheduling extends Model
+class ServiceScheduling extends Pivot
 {
     protected $table = "service_scheduling";
 

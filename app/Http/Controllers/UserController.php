@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\UserService;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\ExpectationFailedException;
 
 class UserController extends Controller
 {
     private UserService $userService;
 
-    public function __construct( UserService $userService)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
@@ -30,7 +28,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +39,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,8 +50,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -64,7 +62,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -79,26 +77,88 @@ class UserController extends Controller
     public function allEmployees(): JsonResponse
     {
         try {
-            $response =  $this->userService->allEmployees();
+            $response = $this->userService->allEmployees();
             return response()->json($response);
 
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
             ]);
         }
     }
 
-    public function schedulesOfEmployees(int $employeeId){
+    /**
+     * @param int $employeeId
+     * @return JsonResponse
+     */
+
+    public function schedulesOfEmployees(int $employeeId): JsonResponse
+    {
         try {
             $response = $this->userService->schedulesOfEmployees($employeeId);
             return response()->json($response);
 
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
             ]);
         }
 
     }
+
+    /**
+     * @param Request $request
+     * @param int $employeeId
+     * @return JsonResponse
+     */
+
+    public function employeeSchedulesAvailable(Request $request, int $employeeId): JsonResponse
+    {
+        $data = $request->all();
+        $date = $data["date"];
+
+        try {
+            $response = $this->userService->employeeSchedulesAvailable($employeeId, $date);
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function addServiceToEmployee(Request $request, $employeeId): JsonResponse
+    {
+        $serviceIds = $request->input("serviceIds");
+
+        try {
+            $response = $this->userService->addServiceToEmployee($serviceIds, $employeeId);
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ]);
+        }
+
+    }
+
+    public function addScheduleToEmployee(Request $request, $employeeId): JsonResponse
+    {
+        $scheduleIds = $request->input("scheduleIds");
+
+        try {
+            $response = $this->userService->addScheduleToEmployee($scheduleIds, $employeeId);
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ]);
+        }
+
+    }
+
+
 }

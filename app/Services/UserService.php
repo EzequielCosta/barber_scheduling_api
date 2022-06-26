@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -54,5 +54,24 @@ class UserService
     public function schedulesOfEmployees(int $employeeId)
     {
         return $this->userRepository->schedulesOfEmployees($employeeId);
+    }
+
+    public function employeeDaysAvailable(int $employeeId, string $date)
+    {
+        return $this->userRepository->employeeDaysAvailable();
+    }
+
+    public function addServiceToEmployee(array $serviceIds, int $employeeId){
+        return $this->userRepository->addServiceToEmployee($serviceIds, $employeeId);
+
+    }
+
+    public function addScheduleToEmployee(array $scheduleIds, int $employeeId){
+        return $this->userRepository->addScheduleToEmployee($scheduleIds, $employeeId);
+
+    }
+
+    public function employeeSchedulesAvailable(int $employeeId, string $date){
+        return $this->userRepository->employeeSchedulesAvailable($employeeId, $date);
     }
 }

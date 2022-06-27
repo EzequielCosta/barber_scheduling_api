@@ -74,4 +74,9 @@ class UserService
     public function employeeSchedulesAvailable(int $employeeId, string $date){
         return $this->userRepository->employeeSchedulesAvailable($employeeId, $date);
     }
+
+    public function serviceOfEmployee(int $employeeId)
+    {
+        return $this->userRepository->serviceOfEmployee($employeeId);
+    }
 }

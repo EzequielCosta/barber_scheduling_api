@@ -99,12 +99,12 @@ class UserRepository
     {
 
         $firstQuery = $this->scheduleModel
-            ->select(["schedules.id","hour"])
+            ->select(["schedules.id", "hour"])
             ->join("schedule_employee", "schedule_employee.schedule_id", "=", "schedules.id")
             ->get()
             ->toArray();
         $secondQuery = $this->schedulingModel
-            ->select(["schedules.id",DB::raw('service_scheduling.time as hour')])
+            ->select(["schedules.id", DB::raw('service_scheduling.time as hour')])
             ->join("service_scheduling", "schedulings.id", "=", "service_scheduling.scheduling_id")
             ->join("schedules", "service_scheduling.time", "=", "schedules.hour")
             ->where('employee_id', $employeeId)
@@ -118,4 +118,8 @@ class UserRepository
         return $diff;
     }
 
+    public function serviceOfEmployee(int $employeeId)
+    {
+        return ($this->userModel->find($employeeId))->services;
+    }
 }

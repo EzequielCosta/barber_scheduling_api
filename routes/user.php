@@ -13,6 +13,7 @@ Route::group(["prefix" => "user", "middleware" => ["auth:sanctum"]], function(){
     Route::post("/employees/{id}/add-services",[UserController::class, "addServiceToEmployee"]);
     Route::post("/employees/{id}/add-schedule",[UserController::class, "addScheduleToEmployee"]);
     Route::post("/employees/{id}/schedule-available",[UserController::class, "employeeSchedulesAvailable"]);
+    Route::get("/employees/{id}/services",[UserController::class, "serviceOfEmployee"]);
 
     Route::get("/customers",[UserController::class, "allCustomers"]);
 

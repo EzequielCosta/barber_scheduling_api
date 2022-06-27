@@ -177,4 +177,20 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @param int $employeeId
+     * @return JsonResponse
+     */
+    public function serviceOfEmployee(int $employeeId): JsonResponse
+    {
+        try {
+            $response = $this->userService->serviceOfEmployee($employeeId);
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ]);
+        }
+    }
 }

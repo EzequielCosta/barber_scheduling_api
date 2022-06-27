@@ -40,9 +40,9 @@ class UserRepository
         return $this->userModel->where("administrator", "=", "1")->get();
     }
 
-    public function allCustumers(): Collection
+    public function allCustomers(): Collection
     {
-        return $this->userModel->where("custumer", "=", "1")->get();
+        return $this->userModel->where("customer", "=", "1")->get();
     }
 
     public function schedulesOfEmployees(int $employeeId)

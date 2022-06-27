@@ -160,5 +160,21 @@ class UserController extends Controller
 
     }
 
+    /**
+     * @return JsonResponse
+     */
+
+    public function allCustomers(): JsonResponse
+    {
+        try {
+            $response = $this->userService->allCustomers();
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ]);
+        }
+    }
 
 }

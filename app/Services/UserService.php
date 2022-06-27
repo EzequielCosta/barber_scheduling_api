@@ -46,9 +46,9 @@ class UserService
     /**
      * @return Collection
      */
-    public function allCustumer(): Collection
+    public function allCustomers(): Collection
     {
-        return $this->userRepository->allCustumers();
+        return $this->userRepository->allCustomers();
     }
 
     public function schedulesOfEmployees(int $employeeId)

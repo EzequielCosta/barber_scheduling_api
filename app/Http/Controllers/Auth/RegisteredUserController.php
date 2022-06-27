@@ -55,6 +55,7 @@ class RegisteredUserController extends Controller
         $token = $user->createToken($request->get("device_name"))->plainTextToken;
 
         return response()->json([
+            'user' => $user,
             'access_token' => $token,
             'token_type' => 'Bearer',
         ]);

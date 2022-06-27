@@ -15,7 +15,7 @@ class Scheduling extends Model
         'time',
         'date',
         'employee_id',
-        'custumer_id',
+        'customer_id',
         'total_price',
     ];
 

@@ -64,8 +64,8 @@ class UserController extends Controller
 
         } catch (Exception $exception) {
             return response()->json([
-                "error" => $exception->getMessage()
-            ]);
+                "error" => $exception->getMessage(),
+            ], 401);
         }
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
     }
 
@@ -111,7 +111,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
 
     }
@@ -134,7 +134,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
     }
 
@@ -149,7 +149,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
 
     }
@@ -165,7 +165,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
 
     }
@@ -183,7 +183,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
     }
 
@@ -200,7 +200,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
     }
 
@@ -218,7 +218,7 @@ class UserController extends Controller
         } catch (Exception $exception) {
             return response()->json([
                 "error" => $exception->getMessage()
-            ]);
+            ], 401);
         }
     }
 

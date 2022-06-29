@@ -50,7 +50,7 @@ class ServiceController extends Controller
             $objectCreated = $this->servicesService->store($request->all());
             return  response()->json($objectCreated, 201);
         }catch (\Exception $e){
-            return  response()->json(["error" => $e->getMessage()]);
+            return  response()->json(["error" => $e->getMessage()],401);
         }
     }
 
@@ -66,7 +66,7 @@ class ServiceController extends Controller
             $object =  $this->servicesService->show($id);
             return  response()->json($object);
         }catch (\Exception $e){
-            return \response()->json(["error" => $e->getMessage()]);
+            return \response()->json(["error" => $e->getMessage()],401);
         }
 
     }
@@ -95,7 +95,7 @@ class ServiceController extends Controller
             $object = $this->servicesService->update($request->all(), $id);
             return response()->json($object);
         }catch (\Exception $e){
-            return response()->json(["error" => $e->getMessage()]);
+            return response()->json(["error" => $e->getMessage()],401);
         }
     }
 
@@ -111,7 +111,7 @@ class ServiceController extends Controller
             $object =  $this->servicesService->destroy($id);
             return response()->json($object);
         }catch (Exception $e){
-            return response()->json(["error" => $e->getMessage()]);
+            return response()->json(["error" => $e->getMessage()],401);
         }
     }
 
@@ -120,7 +120,7 @@ class ServiceController extends Controller
             $object =  $this->servicesService->findEmployeesByService($id);
             return  response()->json($object);
         }catch (\Exception $e){
-            return \response()->json(["error" => $e->getMessage()]);
+            return \response()->json(["error" => $e->getMessage()],401);
         }
     }
 }

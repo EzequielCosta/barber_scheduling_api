@@ -28,7 +28,7 @@ class SchedulingController extends Controller
             $response = $this->schedulingService->all();
             return response()->json($response);
         } catch (\Exception $exception) {
-            return response()->json(["error" => $exception->getMessage()]);
+            return response()->json(["error" => $exception->getMessage()], 401);
         }
     }
 
@@ -45,7 +45,7 @@ class SchedulingController extends Controller
             $response = $this->schedulingService->store($request->all());
             return response()->json($response, 201);
         } catch (\Exception $exception) {
-            return response()->json(["error" => $exception->getMessage()]);
+            return response()->json(["error" => $exception->getMessage()],401);
         }
     }
 
@@ -61,7 +61,7 @@ class SchedulingController extends Controller
             $response = $this->schedulingService->show($id);
             return response()->json($response);
         } catch (\Exception $exception) {
-            return response()->json(["error" => $exception->getMessage()]);
+            return response()->json(["error" => $exception->getMessage()],401);
         }
 
     }

@@ -122,4 +122,18 @@ class UserRepository
     {
         return ($this->userModel->find($employeeId))->services;
     }
+
+    public function findCustomer($customerId){
+
+        return $this->userModel->where([["id", $customerId], ["customer","1"]])->get();
+    }
+
+    public function udpate(array $data, int $userId){
+
+        $object = $this->userModel->find($userId);
+
+        return $object?->update($data);
+
+
+    }
 }

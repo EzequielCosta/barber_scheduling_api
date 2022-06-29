@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserService
@@ -78,5 +79,27 @@ class UserService
     public function serviceOfEmployee(int $employeeId)
     {
         return $this->userRepository->serviceOfEmployee($employeeId);
+    }
+
+    public function findCustomer($customerId){
+
+        return $this->userRepository->findCustomer($customerId);
+    }
+
+    /**
+     * @param Request $request
+     * @param $userId
+     * @return string
+     */
+
+    public function update(array $data, $userId): string
+    {
+        $object = $this->userRepository->udpate($data,$userId);
+
+        if ($object === null){
+            return "User not found";
+        }
+
+        return $object;
     }
 }

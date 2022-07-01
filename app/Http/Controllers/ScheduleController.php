@@ -44,12 +44,23 @@ class ScheduleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+
+        $data = $request->all();
+
+        try {
+            $response = $this->scheduleService->store($data);
+            if( is_array($response) &&  array_key_exists("error", $response) ){
+                return response()->json(["error" => $response],401);
+            }
+            return response()->json($response);
+        } catch (\Exception $exception) {
+            return response()->json(["error" => $exception->getMessage()],401);
+        }
     }
 
     /**
@@ -77,7 +88,7 @@ class ScheduleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return Response
      */
@@ -94,6 +105,11 @@ class ScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $response = $this->scheduleService->destroy($id);
+            return response()->json($response);
+        } catch (\Exception $exception) {
+            return response()->json(["error" => $exception->getMessage()],401);
+        }
     }
 }

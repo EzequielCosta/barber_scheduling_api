@@ -14,11 +14,8 @@ Route::group(["prefix" => "schedule", "middleware" => ["auth:sanctum"]], functio
 
     Route::get("/", [ScheduleController::class, 'index']);
     Route::post("/", [ScheduleController::class, 'store']);
-//    Route::get("/{id}", [SchedulingController::class, 'show']);
-//    Route::put("/{id}", [SchedulingController::class, 'update']);
-//    Route::delete("/{id}", [SchedulingController::class, 'destroy']);
-//    Route::put("/cancel/{id}", [SchedulingController::class, 'cancel']);
-//    Route::get("/status/cancel", [SchedulingController::class, 'schedulingCancelAll']);
+    Route::delete("/{id}", [ScheduleController::class, 'destroy']);
+
 });
 
 //});

@@ -70,4 +70,11 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ]);
     }
+
+    public function destroy(Request $request)
+    {
+        $tokenUser = $request->header("token");
+        $tokens = User::token()->where("id", $tokenUser)->delete();
+        return 1;
+    }
 }

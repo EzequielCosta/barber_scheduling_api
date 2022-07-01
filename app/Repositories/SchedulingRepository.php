@@ -8,6 +8,9 @@ use App\Models\ServiceScheduling;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
+const SCHEDULING_PENDING = "1";
+const SCHEDULING_CANCEL = "2";
+
 class SchedulingRepository implements CRUDRepository
 {
     private Scheduling $scheduling;
@@ -102,5 +105,28 @@ class SchedulingRepository implements CRUDRepository
 
         return !($alreadyWasScheduled === 0);
 
+    }
+
+    /**
+     * @param array $data
+     * @param Scheduling $scheduling
+     * @return bool
+     */
+
+    public function cancelScheduling (array $data, Scheduling $scheduling): bool
+    {
+
+        $data = [
+          "cause_canceling" => $data["cause_canceling"],
+          "status" => SCHEDULING_CANCEL,
+        ];
+
+        return $scheduling->update($data);
+
+    }
+
+    public function schedulingsCancel(){
+
+        return $this->scheduling->where("status", SCHEDULING_CANCEL)->get();
     }
 }

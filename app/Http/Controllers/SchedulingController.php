@@ -105,4 +105,40 @@ class SchedulingController extends Controller
 //        }
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+
+    public function cancel(Request $request, int $id): JsonResponse
+    {
+        $data = $request->all();
+
+        try {
+            $response = $this->schedulingService->cancel($data, $id);
+            if (isset($response["error"])){
+                return response()->json(["error" => $response["error"]],401);
+            }
+            return response()->json($response);
+        } catch (\Exception $exception) {
+            return response()->json(["error" => $exception->getMessage()],401);
+        }
+    }
+
+    /**
+     * @return JsonResponse
+     */
+
+    public function schedulingCancelAll(): JsonResponse
+    {
+        try {
+            $response = $this->schedulingService->schedulingsCancel();
+            return response()->json($response);
+        } catch (\Exception $exception) {
+            return response()->json(["error" => $exception->getMessage()],401);
+        }
+    }
+
+
 }

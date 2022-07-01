@@ -6,6 +6,9 @@ use App\Repositories\SchedulingRepository;
 use App\Repositories\ServiceSchedulingRepository;
 use Illuminate\Database\Eloquent\Collection;
 
+const SCHEDULING_PENDING = "1";
+const SCHEDULING_CANCEL = "2";
+
 class SchedulingService implements CRUDService
 {
     private SchedulingRepository $schedulingRepository;
@@ -41,7 +44,7 @@ class SchedulingService implements CRUDService
 
         $schedulingObject = $this->schedulingRepository->store($data);
         $totalPrice = 0.0;
-        foreach ($data["services"] as $service){
+        foreach ($data["services"] as $service) {
             $dataService = $service;
             $dataService["scheduling_id"] = $schedulingObject->id;
             $dataService["service_id"] = $service["id"];
@@ -78,6 +81,41 @@ class SchedulingService implements CRUDService
      */
     public function destroy(int|string $id)
     {
+
+    }
+
+    /**
+     * @param array $data
+     * @param $id
+     * @return bool|string
+     */
+
+    public function cancel(array $data, $id): bool|string|array
+    {
+        $hasScheduling = $this->show($id);
+
+        if ($hasScheduling === null) {
+            return ["error" => "Sheduling not found"];
+        }
+
+        if ($hasScheduling->status === SCHEDULING_CANCEL) {
+            return ["error" => "Sheduling already was canceled"];
+        }
+
+        if (!isset($data["cause_canceling"])) {
+            return ["error" => "cause_canceling required"];
+        }
+
+        return $this->schedulingRepository->cancelScheduling($data, $hasScheduling);
+    }
+
+    /**
+     * @return mixed
+     */
+
+    public function schedulingsCancel(): mixed
+    {
+        return $this->schedulingRepository->schedulingsCancel();
 
     }
 }

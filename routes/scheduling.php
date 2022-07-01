@@ -17,6 +17,8 @@ Route::group(["prefix" => "scheduling", "middleware" => ["auth:sanctum"]], funct
     Route::get("/{id}", [SchedulingController::class, 'show']);
     Route::put("/{id}", [SchedulingController::class, 'update']);
     Route::delete("/{id}", [SchedulingController::class, 'destroy']);
+    Route::put("/cancel/{id}", [SchedulingController::class, 'cancel']);
+    Route::get("/status/cancel", [SchedulingController::class, 'schedulingCancelAll']);
 });
 
 //});

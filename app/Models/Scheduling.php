@@ -17,6 +17,8 @@ class Scheduling extends Model
         'employee_id',
         'customer_id',
         'total_price',
+        'status',
+        'motivo'
     ];
 
     public function employee(): BelongsTo

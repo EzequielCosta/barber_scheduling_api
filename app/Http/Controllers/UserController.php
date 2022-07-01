@@ -222,4 +222,28 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+
+    public function schedulingsOfEmployees(int $id): JsonResponse
+    {
+
+        try {
+            $response = $this->userService->scheduligsOfEmployee($id);
+            if (array_key_exists("error", $response)) {
+
+                return response()->json([
+                    "error" => $response
+                ], 401);
+            }
+            return response()->json($response);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                "error" => $exception->getMessage()
+            ], 401);
+        }
+    }
 }

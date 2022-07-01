@@ -62,17 +62,20 @@ class UserService
         return $this->userRepository->employeeDaysAvailable();
     }
 
-    public function addServiceToEmployee(array $serviceIds, int $employeeId){
+    public function addServiceToEmployee(array $serviceIds, int $employeeId)
+    {
         return $this->userRepository->addServiceToEmployee($serviceIds, $employeeId);
 
     }
 
-    public function addScheduleToEmployee(array $scheduleIds, int $employeeId){
+    public function addScheduleToEmployee(array $scheduleIds, int $employeeId)
+    {
         return $this->userRepository->addScheduleToEmployee($scheduleIds, $employeeId);
 
     }
 
-    public function employeeSchedulesAvailable(int $employeeId, string $date){
+    public function employeeSchedulesAvailable(int $employeeId, string $date)
+    {
         return $this->userRepository->employeeSchedulesAvailable($employeeId, $date);
     }
 
@@ -81,7 +84,8 @@ class UserService
         return $this->userRepository->serviceOfEmployee($employeeId);
     }
 
-    public function findCustomer($customerId){
+    public function findCustomer($customerId)
+    {
 
         return $this->userRepository->findCustomer($customerId);
     }
@@ -94,12 +98,30 @@ class UserService
 
     public function update(array $data, $userId): string
     {
-        $object = $this->userRepository->udpate($data,$userId);
+        $object = $this->userRepository->udpate($data, $userId);
 
-        if ($object === null){
+        if ($object === null) {
             return "User not found";
         }
 
         return $object;
+    }
+
+    /**
+     * @param int $id
+     * @return array|null
+     */
+
+    public function scheduligsOfEmployee(int $id): array|null
+    {
+
+        $schedulings = $this->userRepository->schedulings($id);
+
+        if ($schedulings === null) {
+            return ["error" => "Employee not found"];
+        }
+
+        return $schedulings;
+
     }
 }

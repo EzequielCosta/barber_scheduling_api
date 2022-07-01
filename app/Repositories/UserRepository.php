@@ -123,17 +123,40 @@ class UserRepository
         return ($this->userModel->find($employeeId))->services;
     }
 
+    /**
+     * @param $customerId
+     * @return mixed
+     */
+
     public function findCustomer($customerId){
 
         return $this->userModel->where([["id", $customerId], ["customer","1"]])->get();
     }
 
+    /**
+     * @param array $data
+     * @param int $userId
+     * @return null
+     *
+     */
     public function udpate(array $data, int $userId){
 
         $object = $this->userModel->find($userId);
 
         return $object?->update($data);
+    }
 
+    /**
+     * @param int $id
+     * @return null|Collection
+     */
+
+    public function schedulings(int $id)
+    {
+
+        $object = $this->userModel->find($id);
+
+        return $object?->schedulings->toArray();
 
     }
 }

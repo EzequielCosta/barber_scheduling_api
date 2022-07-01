@@ -129,4 +129,5 @@ class SchedulingRepository implements CRUDRepository
 
         return $this->scheduling->where("status", SCHEDULING_CANCEL)->get();
     }
+
 }

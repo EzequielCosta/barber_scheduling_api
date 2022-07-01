@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function schedulings(): HasMany
     {
-        return $this->hasMany(Scheduling::class);
+        return $this->hasMany(Scheduling::class, foreignKey: 'employee_id');
     }
 
     public function services()
